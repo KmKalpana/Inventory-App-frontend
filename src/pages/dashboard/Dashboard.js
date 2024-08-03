@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, {useEffect} from 'react';
 import UseRedirectLoggedOutUser from '../../customHook/useRedirectLoggedOutUser';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,26 +12,23 @@ const Dashboard = () => {
     const dispatch=useDispatch()
     const isLoggedIn=useSelector(selectIsLoggedIn)
      const { products, isLoading, isError, message } = useSelector(
-    // @ts-ignore
-    (state) => state.product
-  );
+       (state) => state.product
+     );
       useEffect(() => {
     if (isLoggedIn === true) {
-      // @ts-ignore
       dispatch(getProducts());
     }
 
     if (isError) {
-      console.log(message);
+      
     }
   }, [isLoggedIn, isError, message, dispatch]);
    return (
-    <div>
-     <ProductSummary products={products} />
-       <ProductList products={products} />
-      
-    </div>
-  );
+     <div>
+       <ProductSummary products={products} />
+       <ProductList products={products} isLoading={isLoading}  />
+     </div>
+   );
 
 }
 
